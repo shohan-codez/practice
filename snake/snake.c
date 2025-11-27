@@ -17,6 +17,8 @@ void inputFunction();
 void title();
 void snakeHeadMovement();
 void instruction();
+void checkCollision();
+void gameOver();
 
 
 const int boundaryStartY = 0;
@@ -146,6 +148,7 @@ void gameEngine(){ //-----------------------------------------------------------
         
         inputFunction();
         snakeHeadMovement();
+        checkCollision();
         setCursor(boundaryStartY, boundaryStartX);
         printInGameScreen();
         Sleep(refreshRate);
@@ -257,6 +260,32 @@ void printInGameScreen(){ //print every frame ----------------------------------
     instruction();
     // snakeHeadY++;
 }
+
+// shohans code for checking collision and printing game over screen  
+
+void checkCollision() {
+    if (snakeHeadX <= boundaryStartX || snakeHeadX >= boundaryEndX ||
+        snakeHeadY <= boundaryStartY || snakeHeadY >= boundaryEndY) {
+        gameOver();
+    }
+}
+
+void gameOver() {
+    system("cls"); // clear the screen
+    Beep(500, 300); 
+    Beep(400, 300);
+    printf("\n\n");
+    printf("#############################\n");
+    printf("#                           #\n");
+    printf("#        GAME OVER!         #\n");
+    printf("#      Final Score: %d      #\n", score);
+    printf("#                           #\n");
+    printf("#############################\n");
+    printf("\nPress any key to exit...");
+    getch(); // wait for keypress
+    exit(0); // terminate the program
+}
+
 
 void hideCursor(){ //ChatGPT generated ----------------------------------------------------------------
     HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
